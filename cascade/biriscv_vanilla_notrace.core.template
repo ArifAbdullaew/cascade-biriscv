@@ -45,9 +45,15 @@ filesets:
       - src/tcm/tcm_mem_ram.v
     file_type: verilogSource
 
+  cxx_tb:
+    files:
+      - main.cpp
+    file_type: cppSource
+
 targets:
   verilator:
     default_tool: verilator
     filesets:
       - rtl
+      - cxx_tb
     toplevel: riscv_tcm_top
