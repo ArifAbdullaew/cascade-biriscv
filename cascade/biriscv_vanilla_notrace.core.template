@@ -1,4 +1,4 @@
-CAPI=2:
+CAPI=2
 
 name: biriscv_vanilla_notrace
 
@@ -12,7 +12,8 @@ filesets:
       - src/core/biriscv_csr_regfile.v
       - src/core/biriscv_decode.v
       - src/core/biriscv_decoder.v
-      - src/core/biriscv_defs.v
+      - src/core/biriscv_defs.v:
+          is_include_file: true
       - src/core/biriscv_divider.v
       - src/core/biriscv_exec.v
       - src/core/biriscv_fetch.v
@@ -50,8 +51,3 @@ targets:
     filesets:
       - rtl
     toplevel: biriscv_tiny_soc
-
-tools:
-  verilator:
-    include_path:
-      - src/core

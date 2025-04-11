@@ -22,7 +22,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //-----------------------------------------------------------------
-`include "src/core/biriscv_defs.v"
+`include "biriscv_defs.v"
 
 module biriscv_decoder
 (

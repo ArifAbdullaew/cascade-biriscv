@@ -181,7 +181,7 @@ module biriscv_issue
 
 
 
-`include "src/core/biriscv_defs.v"
+`include "biriscv_defs.v"
 
 wire enable_dual_issue_w = SUPPORT_DUAL_ISSUE;
 wire enable_muldiv_w     = SUPPORT_MULDIV;
