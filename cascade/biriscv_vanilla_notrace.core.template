@@ -50,7 +50,8 @@ targets:
     filesets:
       - rtl
     toplevel: biriscv_tiny_soc
-    tool_options:
-      verilator:
-        include_path:
-          - src/core
+
+tools:
+  verilator:
+    include_path:
+      - src/core
