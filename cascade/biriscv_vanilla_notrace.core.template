@@ -1,4 +1,4 @@
-CAPI=2:
+CAPI=2
 
 name: biriscv_vanilla_notrace
 
@@ -43,8 +43,6 @@ filesets:
       - src/tcm/tcm_mem_pmem.v
       - src/tcm/tcm_mem_ram.v
     file_type: verilogSource
-    include_dirs:             # <--- ЭТО ВАЖНО: include_dirs должен быть ЗДЕСЬ
-      - src/core
 
 targets:
   verilator:

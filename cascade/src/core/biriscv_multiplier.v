@@ -48,7 +48,7 @@ module biriscv_multiplier
 //-----------------------------------------------------------------
 // Includes
 //-----------------------------------------------------------------
-`include "biriscv_defs.v"
+`include "src/core/biriscv_defs.v"
 
 localparam MULT_STAGES = 2; // 2 or 3
 

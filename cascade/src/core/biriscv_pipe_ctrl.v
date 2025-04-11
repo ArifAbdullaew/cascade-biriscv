@@ -116,7 +116,7 @@ module biriscv_pipe_ctrl
 //-------------------------------------------------------------
 // Includes
 //-------------------------------------------------------------
-`include "biriscv_defs.v"
+`include "src/core/biriscv_defs.v"
 
 wire squash_e1_e2_w;
 wire branch_misaligned_w = (issue_branch_taken_i && issue_branch_target_i[1:0] != 2'b0);
