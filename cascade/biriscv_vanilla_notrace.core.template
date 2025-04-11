@@ -41,7 +41,7 @@ filesets:
       - src/tcm/dport_axi.v
       - src/tcm/dport_mux.v
       - src/tcm/tcm_mem_pmem.v
-      - src/tcmp/tcm_mem_ram.v
+      - src/tcm/tcm_mem_ram.v
     file_type: verilogSource
 
 targets:
