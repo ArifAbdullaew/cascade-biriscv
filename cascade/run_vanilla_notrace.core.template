@@ -1,6 +1,6 @@
 CAPI=2:
 
-name: run_vanilla_notrace
+name: {{design_name}}_vanilla_notrace
 
 filesets:
   rtl:
@@ -26,10 +26,22 @@ filesets:
       - src/core/biriscv_regfile.v
       - src/core/biriscv_trace_sim.v
       - src/core/riscv_core.v
-      - src/cache/dport_axi.v
-      - src/cache/dport_mux.v
-      - src/mem/tcm_mem_pmem.v
-      - src/mem/tcm_mem_ram.v
+      - src/dcache/dcache.v
+      - src/dcache/dcache_axi.v
+      - src/dcache/dcache_axi_axi.v
+      - src/dcache/dcache_core.v
+      - src/dcache/dcache_core_data_ram.v
+      - src/dcache/dcache_core_tag_ram.v
+      - src/dcache/dcache_if_pmem.v
+      - src/dcache/dcache_mux.v
+      - src/dcache/dcache_pmem_mux.v
+      - src/icache/icache.v
+      - src/icache/icache_data_ram.v
+      - src/icache/icache_tag_ram.v
+      - src/tcm/dport_axi.v
+      - src/tcm/dport_mux.v
+      - src/tcm/tcm_mem_pmem.v
+      - src/tcmp/tcm_mem_ram.v
     file_type: verilogSource
 
 targets:
