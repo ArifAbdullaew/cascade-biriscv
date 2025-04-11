@@ -12,7 +12,7 @@ filesets:
       - src/core/biriscv_csr_regfile.v
       - src/core/biriscv_decode.v
       - src/core/biriscv_decoder.v
-      - src/core/biriscv_defs.v             # <-- include сам файл
+      - src/core/biriscv_defs.v
       - src/core/biriscv_divider.v
       - src/core/biriscv_exec.v
       - src/core/biriscv_fetch.v
@@ -44,12 +44,9 @@ filesets:
       - src/tcm/tcm_mem_ram.v
     file_type: verilogSource
 
-
 targets:
   verilator:
     default_tool: verilator
     filesets:
       - rtl
     toplevel: biriscv_tiny_soc
-    include_dirs:
-      - src/core
