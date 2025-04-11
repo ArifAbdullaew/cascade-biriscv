@@ -50,4 +50,4 @@ targets:
     default_tool: verilator
     filesets:
       - rtl
-    toplevel: biriscv_tiny_soc
+    toplevel: riscv_tcm_top
