@@ -1,6 +1,6 @@
 CAPI=2:
 
-name: {{design_name}}_vanilla_notrace
+name: biriscv_vanilla_notrace
 
 filesets:
   rtl:
