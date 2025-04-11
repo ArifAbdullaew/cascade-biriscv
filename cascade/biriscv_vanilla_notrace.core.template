@@ -43,8 +43,7 @@ filesets:
       - src/tcm/tcm_mem_pmem.v
       - src/tcm/tcm_mem_ram.v
     file_type: verilogSource
-    include_dirs:          
-      - src/core
+
 
 targets:
   verilator:
@@ -52,3 +51,5 @@ targets:
     filesets:
       - rtl
     toplevel: biriscv_tiny_soc
+    include_dirs:
+      - src/core
