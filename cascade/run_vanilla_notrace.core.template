@@ -25,7 +25,6 @@ filesets:
       - src/core/biriscv_pipe_ctrl.v
       - src/core/biriscv_regfile.v
       - src/core/biriscv_trace_sim.v
-      - src/core/biriscv_wrapper.v
       - src/core/riscv_core.v
       - src/cache/dport_axi.v
       - src/cache/dport_mux.v
