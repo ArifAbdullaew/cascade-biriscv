@@ -1,0 +1,41 @@
+CAPI=2:
+
+name: biriscv_vanilla_notrace
+
+filesets:
+  rtl:
+    files:
+      - biriscv_tiny_soc.v
+      - tcm_mem.v
+      - src/core/biriscv_alu.v
+      - src/core/biriscv_csr.v
+      - src/core/biriscv_csr_regfile.v
+      - src/core/biriscv_decode.v
+      - src/core/biriscv_decoder.v
+      - src/core/biriscv_defs.v
+      - src/core/biriscv_divider.v
+      - src/core/biriscv_exec.v
+      - src/core/biriscv_fetch.v
+      - src/core/biriscv_frontend.v
+      - src/core/biriscv_issue.v
+      - src/core/biriscv_lsu.v
+      - src/core/biriscv_mmu.v
+      - src/core/biriscv_multiplier.v
+      - src/core/biriscv_npc.v
+      - src/core/biriscv_pipe_ctrl.v
+      - src/core/biriscv_regfile.v
+      - src/core/biriscv_trace_sim.v
+      - src/core/biriscv_wrapper.v
+      - src/core/riscv_core.v
+      - src/cache/dport_axi.v
+      - src/cache/dport_mux.v
+      - src/mem/tcm_mem_pmem.v
+      - src/mem/tcm_mem_ram.v
+    file_type: verilogSource
+
+targets:
+  verilator:
+    default_tool: verilator
+    filesets:
+      - rtl
+    toplevel: biriscv_tiny_soc
