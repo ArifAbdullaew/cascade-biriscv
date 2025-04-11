@@ -1,4 +1,4 @@
-CAPI=2
+CAPI=2:
 
 name: biriscv_vanilla_notrace
 
