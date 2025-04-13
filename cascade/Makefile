@@ -7,7 +7,11 @@ corefiles:
 	@cp $(DESIGN_NAME)_vanilla_notrace.core.template $(DESIGN_NAME)_vanilla_notrace.core
 	@fusesoc library add biriscv $(CURDIR)
 
-run_vanilla_notrace: corefiles
+prepare_main:
+	@mkdir -p src/$(DESIGN_NAME)_vanilla_notrace_0
+	@cp -u main.cpp src/$(DESIGN_NAME)_vanilla_notrace_0/
+
+run_vanilla_notrace: corefiles prepare_main
 	fusesoc run --target=verilator --tool=verilator $(DESIGN_NAME)_vanilla_notrace
 	@mkdir -p build/run_vanilla_notrace_0.1/default-verilator
 	@cp build/$(DESIGN_NAME)_vanilla_notrace_0/verilator-verilator/Vbiriscv_tiny_soc build/run_vanilla_notrace_0.1/default-verilator/
