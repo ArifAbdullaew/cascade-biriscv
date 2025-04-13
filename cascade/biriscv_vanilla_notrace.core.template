@@ -56,4 +56,4 @@ targets:
     filesets:
       - rtl
       - cxx_tb
-    toplevel: riscv_tcm_top
+    toplevel: biriscv_tiny_soc
