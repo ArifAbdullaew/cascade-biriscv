@@ -683,6 +683,7 @@ u_issue
     ,.exec1_hold_o(exec1_hold_w)
     ,.mul_hold_o(mul_hold_w)
     ,.interrupt_inhibit_o(interrupt_inhibit_w)
+    ,.x_regs(x_regs)
 );
 
 
