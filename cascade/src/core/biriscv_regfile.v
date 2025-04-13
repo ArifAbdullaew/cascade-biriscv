@@ -217,7 +217,6 @@ begin: REGFILE
     reg [31:0] reg_r30_q;
     reg [31:0] reg_r31_q;
 
-    // Verilator public view of register file
     (* verilator public *) wire [31:0] x_regs [0:31];
     assign x_regs[0]  = 32'b0;
     assign x_regs[1]  = reg_r1_q;
