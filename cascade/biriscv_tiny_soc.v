@@ -107,6 +107,7 @@ module biriscv_tiny_soc
     ,output [  1:0]  axi_t_rresp_o
     ,output [  3:0]  axi_t_rid_o
     ,output          axi_t_rlast_o
+    ,output logic [31:0] x_regs [32]
 );
 
 wire  [ 31:0]  ifetch_pc_w;
@@ -218,6 +219,7 @@ u_core
     ,.mem_i_flush_o(ifetch_flush_w)
     ,.mem_i_invalidate_o(ifetch_invalidate_w)
     ,.mem_i_pc_o(ifetch_pc_w)
+    ,.x_regs(x_regs)
 );
 
 
