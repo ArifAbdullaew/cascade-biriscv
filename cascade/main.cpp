@@ -25,7 +25,7 @@ int main(int argc, char **argv) {
     std::cout << "Found a stop request." << std::endl;
 
     for (int i = 1; i <= 31; ++i) {
-        uint32_t val = top->TOP__biriscv_tiny_soc__u_core__u_issue__u_regfile.REGFILE__DOT__get_register(i);
+        uint32_t val = top->rootp->TOP__biriscv_tiny_soc__u_core__u_issue__u_regfile.REGFILE__DOT__get_register(i);
         printf("Dump of reg x%02d: 0x%08x\n", i, val);
     }
 
