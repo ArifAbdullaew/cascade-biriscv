@@ -1,4 +1,5 @@
 #include "Vbiriscv_tiny_soc.h"
+#include "Vbiriscv_tiny_soc___024root.h" // <---- добавили!
 #include "verilated.h"
 #include <iostream>
 
