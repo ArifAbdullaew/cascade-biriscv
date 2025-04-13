@@ -1,10 +1,10 @@
-#include "Vriscv_tcm_top.h"
+#include "Vbiriscv_tiny_soc.h"
 #include "verilated.h"
 
 int main(int argc, char **argv) {
     Verilated::commandArgs(argc, argv);
 
-    Vriscv_tcm_top* top = new Vriscv_tcm_top;
+    Vbiriscv_tiny_soc* top = new Vbiriscv_tiny_soc;
 
     top->clk_i = 0;
     top->rst_i = 1;
