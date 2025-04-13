@@ -217,6 +217,41 @@ begin: REGFILE
     reg [31:0] reg_r30_q;
     reg [31:0] reg_r31_q;
 
+    // Verilator public view of register file
+    (* verilator public *) wire [31:0] x_regs [0:31];
+    assign x_regs[0]  = 32'b0;
+    assign x_regs[1]  = reg_r1_q;
+    assign x_regs[2]  = reg_r2_q;
+    assign x_regs[3]  = reg_r3_q;
+    assign x_regs[4]  = reg_r4_q;
+    assign x_regs[5]  = reg_r5_q;
+    assign x_regs[6]  = reg_r6_q;
+    assign x_regs[7]  = reg_r7_q;
+    assign x_regs[8]  = reg_r8_q;
+    assign x_regs[9]  = reg_r9_q;
+    assign x_regs[10] = reg_r10_q;
+    assign x_regs[11] = reg_r11_q;
+    assign x_regs[12] = reg_r12_q;
+    assign x_regs[13] = reg_r13_q;
+    assign x_regs[14] = reg_r14_q;
+    assign x_regs[15] = reg_r15_q;
+    assign x_regs[16] = reg_r16_q;
+    assign x_regs[17] = reg_r17_q;
+    assign x_regs[18] = reg_r18_q;
+    assign x_regs[19] = reg_r19_q;
+    assign x_regs[20] = reg_r20_q;
+    assign x_regs[21] = reg_r21_q;
+    assign x_regs[22] = reg_r22_q;
+    assign x_regs[23] = reg_r23_q;
+    assign x_regs[24] = reg_r24_q;
+    assign x_regs[25] = reg_r25_q;
+    assign x_regs[26] = reg_r26_q;
+    assign x_regs[27] = reg_r27_q;
+    assign x_regs[28] = reg_r28_q;
+    assign x_regs[29] = reg_r29_q;
+    assign x_regs[30] = reg_r30_q;
+    assign x_regs[31] = reg_r31_q;
+
     // Simulation friendly names
     wire [31:0] x0_zero_w = 32'b0;
     wire [31:0] x1_ra_w   = reg_r1_q;
