@@ -25,7 +25,7 @@ int main(int argc, char **argv) {
         top->eval();
     }
 
-    auto& regs = top->rootp->TOP__biriscv_tiny_soc__u_core__u_issue__u_regfile;
+    auto& regs = top->vlSymsp->TOP__biriscv_tiny_soc__u_core__u_issue__u_regfile;
 
     for (int i = 1; i <= 31; ++i) {
         uint32_t val = regs.REGFILE__DOT__get_register(i);
