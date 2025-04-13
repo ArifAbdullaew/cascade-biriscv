@@ -1,5 +1,6 @@
 #include "Vbiriscv_tiny_soc.h"
 #include "verilated.h"
+#include <iostream>
 
 int main(int argc, char **argv) {
     Verilated::commandArgs(argc, argv);
@@ -20,6 +21,8 @@ int main(int argc, char **argv) {
         top->clk_i = !top->clk_i;
         top->eval();
     }
+
+    std::cout << "Found a stop request." << std::endl;
 
     delete top;
     return 0;
