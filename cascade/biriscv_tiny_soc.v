@@ -219,7 +219,6 @@ u_core
     ,.mem_i_flush_o(ifetch_flush_w)
     ,.mem_i_invalidate_o(ifetch_invalidate_w)
     ,.mem_i_pc_o(ifetch_pc_w)
-    ,.x_regs(x_regs)
 );
 
 
