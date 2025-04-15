@@ -767,8 +767,7 @@ u_regfile
     .ra1_i(issue_b_ra_idx_w),
     .rb1_i(issue_b_rb_idx_w),
     .ra1_value_o(issue_b_ra_value_w),
-    .rb1_value_o(issue_b_rb_value_w),
-    .x_regs(x_regs)    
+    .rb1_value_o(issue_b_rb_value_w)    
 );
 
 //-------------------------------------------------------------
