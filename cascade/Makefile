@@ -1,21 +1,13 @@
-DESIGN_NAME := biriscv
+all: build-verilated run
 
-all: run_vanilla_notrace
+generate-verilated:
+	$(MAKE) -C tb/tb_tcm -f makefile.generate_verilated
 
-corefiles:
-	@rm -f $(DESIGN_NAME)_vanilla_notrace.core
-	@cp $(DESIGN_NAME)_vanilla_notrace.core.template $(DESIGN_NAME)_vanilla_notrace.core
-	@fusesoc library add biriscv $(CURDIR)
+build-verilated: generate-verilated
+	$(MAKE) -C tb/tb_tcm -f makefile.build_verilated
 
-prepare_main:
-	@mkdir -p src/$(DESIGN_NAME)_vanilla_notrace_0
-	@cp -u main.cpp src/$(DESIGN_NAME)_vanilla_notrace_0/
-	@cp -u biriscv_tiny_soc_rtl.hpp src/$(DESIGN_NAME)_vanilla_notrace_0/
-
-run_vanilla_notrace: corefiles prepare_main
-	fusesoc run --target=verilator --tool=verilator $(DESIGN_NAME)_vanilla_notrace
-	@mkdir -p build/run_vanilla_notrace_0.1/default-verilator
-	@cp build/$(DESIGN_NAME)_vanilla_notrace_0/verilator-verilator/Vbiriscv_tiny_soc build/run_vanilla_notrace_0.1/default-verilator/
+run: build-verilated
+	./tb/tb_tcm/verilator_tb --elf tb/tb_tcm/test.elf --cycles 1000
 
 clean:
-	rm -rf build
+	rm -rf tb/tb_tcm/verilator_out verilator_tb
