@@ -48,6 +48,7 @@ filesets:
   cxx_tb:
     files:
       - main.cpp
+      - biriscv_tiny_soc_rtl.h
     file_type: cppSource
 
 targets:
