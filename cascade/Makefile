@@ -10,6 +10,7 @@ corefiles:
 prepare_main:
 	@mkdir -p src/$(DESIGN_NAME)_vanilla_notrace_0
 	@cp -u main.cpp src/$(DESIGN_NAME)_vanilla_notrace_0/
+	@cp -u biriscv_tiny_soc_rtl.h src/$(DESIGN_NAME)_vanilla_notrace_0/
 
 run_vanilla_notrace: corefiles prepare_main
 	fusesoc run --target=verilator --tool=verilator $(DESIGN_NAME)_vanilla_notrace
