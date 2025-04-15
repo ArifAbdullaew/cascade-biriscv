@@ -1,6 +1,6 @@
 #include <verilated.h>
 #include "Vbiriscv_tiny_soc.h"
-#include "biriscv_tiny_soc_rtl.h"
+#include "biriscv_tiny_soc_rtl.hpp"
 
 int main(int argc, char **argv) {
     Verilated::commandArgs(argc, argv);
