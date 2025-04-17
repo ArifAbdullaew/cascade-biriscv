@@ -1,13 +1,21 @@
-all: build-verilated run
+.PHONY: build run clean help
 
-generate-verilated:
-	$(MAKE) -C tb/tb_tcm -f makefile.generate_verilated
+CORE_NAME = biriscv_tb
+BUILD_DIR = build/$(CORE_NAME)_0/default-verilator
+BIN_PATH  = $(BUILD_DIR)/Vbiriscv_tiny_soc
+ELF       = /cascade-data/spikespeedcalibration.elf
 
-build-verilated: generate-verilated
-	$(MAKE) -C tb/tb_tcm -f makefile.build_verilated
+help:
+	@echo "Targets:"
+	@echo "  make build     - Build Verilator simulation via FuseSoC"
+	@echo "  make run       - Run simulation with $(ELF)"
+	@echo "  make clean     - Clean build directory"
 
-run: build-verilated
-	./tb/tb_tcm/verilator_tb --elf tb/tb_tcm/test.elf --cycles 1000
+build:
+	fusesoc run --target=default --setup --build $(CORE_NAME)
+
+run: build
+	$(BIN_PATH) -f $(ELF)
 
 clean:
-	rm -rf tb/tb_tcm/verilator_out verilator_tb
+	rm -rf build
