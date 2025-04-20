@@ -1,10 +1,11 @@
 CAPI=2:
 
 name: biriscv_tb
-
+description: BiRISCV testbench for Cascade
 filesets:
   rtl:
     files:
+      - biriscv_tiny_soc.v
       - biriscv_tiny_soc.v
       - tcm_mem.v
       - src/core/biriscv_alu.v
@@ -28,31 +29,26 @@ filesets:
       - src/core/biriscv_trace_sim.v
       - src/core/riscv_core.v
       - src/dcache/dcache.v
+      - src/dcache/dcache_axi.v
+      - src/dcache/dcache_axi_axi.v
+      - src/dcache/dcache_core.v
+      - src/dcache/dcache_core_data_ram.v
+      - src/dcache/dcache_core_tag_ram.v
+      - src/dcache/dcache_if_pmem.v
+      - src/dcache/dcache_mux.v
+      - src/dcache/dcache_pmem_mux.v
       - src/icache/icache.v
+      - src/icache/icache_data_ram.v
+      - src/icache/icache_tag_ram.v
       - src/tcm/dport_axi.v
       - src/tcm/dport_mux.v
       - src/tcm/tcm_mem_pmem.v
       - src/tcm/tcm_mem_ram.v
+      - tb/testbench.v
     file_type: verilogSource
 
-  tb:
-    files:
-      - tb/tb_tcm/main.cpp
-      - tb/tb_tcm/elf_load.cpp
-      - tb/tb_tcm/axi4.h
-      - tb/tb_tcm/axi4_lite.h
-      - tb/tb_tcm/elf_load.h
-      - tb/tb_tcm/mem_api.h
-      - tb/tb_tcm/riscv_tcm_top_rtl.h
-      - tb/tb_tcm/sc_reset_gen.h
-      - tb/tb_tcm/testbench.h
-      - tb/tb_tcm/testbench_vbase.h
-    file_type: cppSource
-
 targets:
-  default:
+  vanilla_notrace:
     default_tool: verilator
-    filesets:
-      - rtl
-      - tb
+    filesets: [rtl]
     toplevel: biriscv_tiny_soc
