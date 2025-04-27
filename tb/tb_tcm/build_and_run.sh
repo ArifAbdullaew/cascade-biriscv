@@ -2,25 +2,25 @@
 
 set -e  
 
-echo "=== Updating package lists ==="
+echo "\n=== Updating package lists ===\n"
 apt update
 
-echo "=== Installing required packages ==="
+echo "\n=== Installing required packages ===\n"
 apt install -y libelf-dev binutils-dev libsystemc-dev
 
-echo "=== Sourcing environment ==="
+echo "\n=== Sourcing environment ===\n"
 source setup_environment.sh
 
-echo "=== Generating verilated files ==="
+echo "\n=== Generating verilated files ===\n"
 make -f makefile.generate_verilated
 
-echo "=== Building verilated code ==="
+echo "\n=== Building verilated code ===\n"
 make -f makefile.build_verilated
 
-echo "=== Building SystemC testbench ==="
+echo "\n=== Building SystemC testbench ===\n"
 make -f makefile.build_sysc_tb
 
-echo "=== Running simulation ==="
+echo "\n=== Running simulation ===\n"
 ./build/test.x --elf test.elf
 
-echo "=== Done! ==="
+echo "\n=== Done! ===\n"

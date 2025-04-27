@@ -1,0 +1,50 @@
+CAPI=2:
+
+name: biriscv_tiny_soc
+
+filesets:
+  rtl:
+    files:
+      - biriscv_tiny_soc.v
+      - tcm_mem.v
+    file_type: verilogSource
+
+  core_src:
+    files:
+      - src/core/*.v
+    file_type: verilogSource
+
+  dcache_src:
+    files:
+      - src/dcache/*.v
+    file_type: verilogSource
+
+  icache_src:
+    files:
+      - src/icache/*.v
+    file_type: verilogSource
+
+  tcm_src:
+    files:
+      - src/tcm/*.v
+    file_type: verilogSource
+
+  top_src:
+    files:
+      - src/top/*.v
+    file_type: verilogSource
+
+targets:
+  vanilla_notrace:
+    default_tool: verilator
+    filesets:
+      - rtl
+      - core_src
+      - dcache_src
+      - icache_src
+      - tcm_src
+      - top_src
+    toplevel: biriscv_tiny_soc
+    tools:
+      verilator:
+        verilator_options: ["-O3"]

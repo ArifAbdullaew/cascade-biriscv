@@ -1,21 +1,18 @@
-.PHONY: build run clean help
+FUSESOC_LIBRARY_NAME=cascade-biriscv
+FUSESOC_LIBRARY_PATH=./cascade-biriscv
 
-CORE_NAME = biriscv_tb
-BUILD_DIR = build/$(CORE_NAME)_0/default-verilator
-BIN_PATH  = $(BUILD_DIR)/Vbiriscv_tiny_soc
-ELF       = /cascade-data/spikespeedcalibration.elf
+# Имя дизайна
+DESIGN_NAME=biriscv_tiny_soc
 
-help:
-	@echo "Targets:"
-	@echo "  make build     - Build Verilator simulation via FuseSoC"
-	@echo "  make run       - Run simulation with $(ELF)"
-	@echo "  make clean     - Clean build directory"
+.PHONY: run_vanilla_notrace fusesoc_register
 
-build:
-	fusesoc run --target=default --setup --build $(CORE_NAME)
+run_vanilla_notrace: fusesoc_register
+	fusesoc run --target=vanilla_notrace --tool=verilator $(DESIGN_NAME)
 
-run: build
-	$(BIN_PATH) -f $(ELF)
-
-clean:
-	rm -rf build
+fusesoc_register:
+	@if ! fusesoc list-cores | grep -q $(DESIGN_NAME); then \
+		echo "Registering FuseSoC library $(FUSESOC_LIBRARY_NAME)"; \
+		fusesoc library add $(FUSESOC_LIBRARY_NAME) $(FUSESOC_LIBRARY_PATH); \
+	else \
+		echo "FuseSoC library $(FUSESOC_LIBRARY_NAME) already registered."; \
+	fi
