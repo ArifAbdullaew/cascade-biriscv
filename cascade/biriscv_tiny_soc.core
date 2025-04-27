@@ -1,7 +1,7 @@
 CAPI=2:
 
 name: biriscv_tiny_soc
-description: "biRISC-V Tiny SoC - Verilator simulation"
+description: "biRISCV Tiny SoC - minimal core for FuseSoC CAPI2"
 
 filesets:
   rtl:
@@ -69,13 +69,6 @@ filesets:
       - tb/tb_tcm/testbench_vbase.h: { file_type: user }
     file_type: cppSource
 
-parameters:
-  BOOT_VECTOR:
-    datatype: int
-    paramtype: vlogparam
-    default: 0x00000000
-    description: "(BOOT_VECTOR)"
-
 targets:
   default:
     filesets:
@@ -88,15 +81,3 @@ targets:
       - rtl
       - tb_tcm
     toplevel: biriscv_tiny_soc
-
-default_tool_options:
-  verilator:
-    mode: sc
-    libs:
-      - -lsystemc
-      - -lelf
-      - -lbfd
-    flags:
-      - --exe
-      - --trace
-      - -Wall
