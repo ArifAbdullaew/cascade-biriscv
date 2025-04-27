@@ -1,6 +1,6 @@
 {
   "misaligned_data_supported": true,
-  "privlvs": "mmu",
+  "privlvs": "msu",
   "mmu": "",
   "marchflags": "-march=rv32im -mabi=ilp32",
   "bootaddr": "0x80000000",
@@ -12,8 +12,8 @@
   "lead_cycles": 0,
   "toplevel": "biriscv_tiny_soc",
   "trace_top": "biriscv_tiny_soc.u_core",
-  "verilatorprefix": "biriscv",
-  "memorywordsize": 32,
+  "verilatorprefix": "Vbiriscv_tiny_soc",
+  "memorywordsize": 4,
   "xlen": 32,
   "extensions": ["I", "M"],
   "path_to_exe": "build/run_vanilla_notrace_0.1/default-verilator/Vbiriscv_tiny_soc",
