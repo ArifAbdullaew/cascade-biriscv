@@ -1,7 +1,7 @@
 CAPI=2:
 
-name: cascade:biriscv_tiny_soc
-description: "biRISCV Tiny SoC for Verilator"
+name: biriscv_tiny_soc
+description: "biRISCV Tiny SoC for Verilator simulation"
 version: "1.0"
 
 filesets:
@@ -85,6 +85,6 @@ targets:
     filesets: [rtl, tb_src, tb_hdr]
     toplevel: riscv_tcm_top
     parameters:
-      verilator_options:
+      - name: verilator_options
         datatype: str
         default: "--sc --exe --build --trace -Wall -CFLAGS '-DVM_TRACE=1 -DVL_USER_FINISH=1' -LDFLAGS '-lelf -lbfd -lsystemc'"
