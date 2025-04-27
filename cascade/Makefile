@@ -1,5 +1,5 @@
 run_vanilla_notrace:
-	verilator --cc --exe --build \
+	verilator --cc --exe --build --Wno-WIDTH \
 	  -I./src/top \
 	  -I./src/core \
 	  -I./src/icache \
