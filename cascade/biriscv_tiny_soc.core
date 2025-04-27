@@ -32,7 +32,7 @@ filesets:
       - src/core/biriscv_trace_sim.v
       - src/core/biriscv_xilinx_2r1w.v
       - src/core/riscv_core.v
-      # D$ (data cache) files
+      # D$ files
       - src/dcache/dcache.v
       - src/dcache/dcache_axi.v
       - src/dcache/dcache_axi_axi.v
@@ -42,11 +42,11 @@ filesets:
       - src/dcache/dcache_if_pmem.v
       - src/dcache/dcache_mux.v
       - src/dcache/dcache_pmem_mux.v
-      # I$ (instruction cache) files
+      # I$ files
       - src/icache/icache.v
       - src/icache/icache_data_ram.v
       - src/icache/icache_tag_ram.v
-      # TCM (tightly-coupled memory) files
+      # TCM files
       - src/tcm/dport_axi.v
       - src/tcm/dport_mux.v
       - src/tcm/tcm_mem.v
@@ -59,13 +59,13 @@ filesets:
       - tb/tb_tcm/main.cpp
       - tb/tb_tcm/elf_load.cpp
       - tb/tb_tcm/riscv_tcm_top_rtl.cpp
-      - tb/tb_tcm/axi4.h:        { file_type: user }
-      - tb/tb_tcm/axi4_lite.h:   { file_type: user }
-      - tb/tb_tcm/elf_load.h:    { file_type: user }
-      - tb/tb_tcm/mem_api.h:     { file_type: user }
+      - tb/tb_tcm/axi4.h: { file_type: user }
+      - tb/tb_tcm/axi4_lite.h: { file_type: user }
+      - tb/tb_tcm/elf_load.h: { file_type: user }
+      - tb/tb_tcm/mem_api.h: { file_type: user }
       - tb/tb_tcm/riscv_tcm_top_rtl.h: { file_type: user }
       - tb/tb_tcm/sc_reset_gen.h: { file_type: user }
-      - tb/tb_tcm/testbench.h:   { file_type: user }
+      - tb/tb_tcm/testbench.h: { file_type: user }
       - tb/tb_tcm/testbench_vbase.h: { file_type: user }
     file_type: cppSource
 
@@ -88,7 +88,15 @@ targets:
       - rtl
       - tb_tcm
     toplevel: biriscv_tiny_soc
-    tool_options:
-      verilator:
-        mode: sc
-        libs: ["-lsystemc", "-lelf", "-lbfd"]
+
+default_tool_options:
+  verilator:
+    mode: sc
+    libs:
+      - -lsystemc
+      - -lelf
+      - -lbfd
+    flags:
+      - --exe
+      - --trace
+      - -Wall
