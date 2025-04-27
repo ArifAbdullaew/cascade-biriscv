@@ -36,11 +36,6 @@ bool load_elf(Vbiriscv_tiny_soc *top, const char *filename) {
         uint32_t addr = phdr.p_paddr;
         uint32_t filesz = phdr.p_filesz;
 
-        if (addr < BASE_ADDR) {
-            std::cerr << "Skipping loading segment at low address 0x" << std::hex << addr << std::endl;
-            continue;
-        }
-
         std::cout << "Loading segment at 0x" << std::hex << addr << " (" << std::dec << filesz << " bytes)" << std::endl;
 
         lseek(fd, phdr.p_offset, SEEK_SET);
@@ -49,8 +44,15 @@ bool load_elf(Vbiriscv_tiny_soc *top, const char *filename) {
             uint32_t data;
             read(fd, &data, sizeof(data));
 
-            uint32_t mem_addr = (addr - BASE_ADDR + offset) >> 3; // 64 бит => сдвиг на 3
-            if (mem_addr >= 131072) { // размер RAM (128KB)
+            // Теперь нормализуем адрес
+            uint32_t mem_addr;
+            if (addr >= BASE_ADDR) {
+                mem_addr = (addr - BASE_ADDR + offset) >> 3; // Обычный случай
+            } else {
+                mem_addr = (addr + offset) >> 3; // Для низких адресов
+            }
+
+            if (mem_addr >= 131072) { // всё равно проверяем границу RAM
                 std::cerr << "Memory overflow during ELF load!" << std::endl;
                 close(fd);
                 return false;
