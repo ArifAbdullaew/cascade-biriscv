@@ -216,7 +216,7 @@ public:
         std::cout << "\tBytes written: " << count << std::endl;
 #endif
         //Template fix. 
-        m_dut->write_mem(addr, data)
+        m_dut->write_mem(addr, data);
     }
     //-----------------------------------------------------------------
     // write: Read byte from memory
@@ -231,7 +231,7 @@ public:
         return readData;
 #endif
 #ifndef DEBUG_TCM
-        return m_dut->read(addr);
+        return m_dut->read_mem(addr);
 #endif
     }
 };
