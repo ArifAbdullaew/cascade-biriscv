@@ -1,8 +1,8 @@
 ###############################################################################
 # Variables
 ###############################################################################
-VERILATOR_SRC ?= /usr/share/verilator/include
-SYSTEMC_HOME  ?= /usr/local/systemc-3.0.1
+VERILATOR_SRC ?= /usr/local/share/verilator/include
+SYSTEMC_HOME  ?= /root/systemc-2.3.3
 
 OBJ_DIR      ?= obj/
 EXE_DIR      ?= build/
