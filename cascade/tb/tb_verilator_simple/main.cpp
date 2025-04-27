@@ -44,7 +44,7 @@ int main(int argc, char **argv) {
         if (cycle % 1000 == 0) {
             std::cout << "Cycle: " << cycle << std::endl;
             for (int i = 0; i < 32; i++) {
-                uint32_t reg = top->rootp->biriscv_tiny_soc->u_core->u_issue->u_regfile->get_register(i);
+                uint32_t reg = top->rootp->biriscv_tiny_soc->u_core->u_issue->u_regfile->REGFILE__DOT__get_register(i);
                 std::cout << "[DEBUG] Parsed int reg x" << i << ": " << reg << std::endl;
             }
             std::cout << "------------------------------" << std::endl;
