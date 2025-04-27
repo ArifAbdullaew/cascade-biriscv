@@ -7,7 +7,7 @@ filesets:
   rtl:
     files:
       # Top-level and SoC modules
-      - src/top/biriscv_tiny_soc.v
+      - biriscv_tiny_soc.v
       - src/top/riscv_tcm_top.v
       - src/top/riscv_top.v
       # Core (CPU) files
@@ -73,11 +73,11 @@ targets:
   default:
     filesets:
       - rtl
-    toplevel: biriscv_tiny_soc
+    toplevel: riscv_tcm_top
 
   verilator:
     default_tool: verilator
     filesets:
       - rtl
       - tb_tcm
-    toplevel: biriscv_tiny_soc
+    toplevel: riscv_tcm_top
