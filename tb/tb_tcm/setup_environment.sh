@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Проверка и установка LD_LIBRARY_PATH
 if [[ -z "$LD_LIBRARY_PATH" ]]; then
     export LD_LIBRARY_PATH=/usr/local/systemc-3.0.1/lib-linux64
     echo "LD_LIBRARY_PATH successfully set to: $LD_LIBRARY_PATH"
@@ -24,3 +23,9 @@ fi
 echo "Current environment variables:"
 echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
 echo "PATH=$PATH"
+
+# SystemC for Verilator --sc
+export SYSTEMC_INCLUDE=/root/systemc-2.3.3/include
+export SYSTEMC_LIBDIR=/root/systemc-2.3.3/lib-linux64
+echo "SYSTEMC_INCLUDE set to: $SYSTEMC_INCLUDE"
+echo "SYSTEMC_LIBDIR set to: $SYSTEMC_LIBDIR"
