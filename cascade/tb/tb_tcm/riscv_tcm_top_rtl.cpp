@@ -20,7 +20,7 @@ void riscv_tcm_top_rtl::write_mem(uint32_t addr, uint8_t data) {
 //-------------------------------------------------------------
 riscv_tcm_top_rtl::riscv_tcm_top_rtl(sc_module_name name): sc_module(name)
 {
-    m_rtl = std::make_unique<Vriscv_tcm_top>("Vbiriscv_tiny_soc");
+    m_rtl = std::make_unique<Vbiriscv_tiny_soc>("Vbiriscv_tiny_soc");
     m_rtl->clk_i(m_clk_in);
     m_rtl->rst_i(m_rst_in);
     m_rtl->rst_cpu_i(m_rst_cpu_in);
