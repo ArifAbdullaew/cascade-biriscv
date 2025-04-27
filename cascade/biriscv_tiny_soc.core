@@ -1,23 +1,21 @@
 CAPI=2:
 
 name: biriscv_tiny_soc
-description: "biRISCV Tiny SoC - minimal core for FuseSoC CAPI2"
+description: "biRISCV Tiny SoC for Verilator simulation"
+version: "1.0"
 
 filesets:
   rtl:
     files:
-      # Top-level and SoC modules
       - biriscv_tiny_soc.v
       - src/top/riscv_tcm_top.v
       - src/top/riscv_top.v
-      # Core (CPU) files
       - src/core/biriscv_alu.v
       - src/core/biriscv_csr.v
       - src/core/biriscv_csr_regfile.v
       - src/core/biriscv_decode.v
       - src/core/biriscv_decoder.v
-      - src/core/biriscv_defs.v:
-          is_include_file: true
+      - src/core/biriscv_defs.v
       - src/core/biriscv_divider.v
       - src/core/biriscv_exec.v
       - src/core/biriscv_fetch.v
@@ -32,7 +30,6 @@ filesets:
       - src/core/biriscv_trace_sim.v
       - src/core/biriscv_xilinx_2r1w.v
       - src/core/riscv_core.v
-      # D$ files
       - src/dcache/dcache.v
       - src/dcache/dcache_axi.v
       - src/dcache/dcache_axi_axi.v
@@ -42,11 +39,9 @@ filesets:
       - src/dcache/dcache_if_pmem.v
       - src/dcache/dcache_mux.v
       - src/dcache/dcache_pmem_mux.v
-      # I$ files
       - src/icache/icache.v
       - src/icache/icache_data_ram.v
       - src/icache/icache_tag_ram.v
-      # TCM files
       - src/tcm/dport_axi.v
       - src/tcm/dport_mux.v
       - src/tcm/tcm_mem.v
@@ -54,30 +49,30 @@ filesets:
       - src/tcm/tcm_mem_ram.v
     file_type: systemVerilogSource
 
-  tb_tcm:
+  tb_src:
     files:
       - tb/tb_tcm/main.cpp
       - tb/tb_tcm/elf_load.cpp
       - tb/tb_tcm/riscv_tcm_top_rtl.cpp
-      - tb/tb_tcm/axi4.h: { file_type: user }
-      - tb/tb_tcm/axi4_lite.h: { file_type: user }
-      - tb/tb_tcm/elf_load.h: { file_type: user }
-      - tb/tb_tcm/mem_api.h: { file_type: user }
-      - tb/tb_tcm/riscv_tcm_top_rtl.h: { file_type: user }
-      - tb/tb_tcm/sc_reset_gen.h: { file_type: user }
-      - tb/tb_tcm/testbench.h: { file_type: user }
-      - tb/tb_tcm/testbench_vbase.h: { file_type: user }
     file_type: cppSource
+
+  tb_hdr:
+    files:
+      - tb/tb_tcm/axi4.h
+      - tb/tb_tcm/axi4_lite.h
+      - tb/tb_tcm/elf_load.h
+      - tb/tb_tcm/mem_api.h
+      - tb/tb_tcm/riscv_tcm_top_rtl.h
+      - tb/tb_tcm/sc_reset_gen.h
+      - tb/tb_tcm/testbench.h
+      - tb/tb_tcm/testbench_vbase.h
+    file_type: user
 
 targets:
   default:
-    filesets:
-      - rtl
-    toplevel: riscv_tcm_top
+    filesets: [rtl]
 
   verilator:
     default_tool: verilator
-    filesets:
-      - rtl
-      - tb_tcm
-    toplevel: riscv_tcm_top
+    filesets: [rtl, tb_src, tb_hdr]
+    toplevel: biriscv_tiny_soc

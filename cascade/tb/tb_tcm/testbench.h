@@ -15,7 +15,7 @@
 #include "verilated_vcd_sc.h"
 
 #define MEM_BASE 0x00000000
-#define MEM_SIZE (512 * 1024)
+#define MEM_SIZE (1024  * 1024)
 
 //#define DEBUG_TCM
 
@@ -228,7 +228,7 @@ public:
     uint8_t read(uint32_t addr)
     {
 #ifdef DEBUG_TCM
-        uint32_t readData = m_dut->m_rtl->v->u_tcm->read(addr);
+        uint32_t readData = m_dut->m_rtl->u_tcm->read(addr);
         std::cout << "Addr: " << std::hex << addr 
                     << "Data: " << std::setw(2) << std::setfill('0') 
                     << (int)readData << std::endl;

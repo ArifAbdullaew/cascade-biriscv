@@ -1,8 +1,8 @@
 ###############################################################################
 ## Tool paths
 ###############################################################################
-VERILATOR_SRC ?= /usr/share/verilator/include
-SYSTEMC_HOME  ?= /usr/local/systemc-3.0.1
+VERILATOR_SRC ?= /usr/local/share/verilator/include
+SYSTEMC_HOME  ?= /root/systemc-2.3.3
 
 TEST_IMAGE ?= $(abspath ./test.elf)
 
