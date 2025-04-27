@@ -78,8 +78,9 @@ targets:
       - rtl
       - tb
     toplevel: riscv_tcm_top
-    tool_options:
-      verilator:
-        verilator_options:
-          - --sc
-          - --exe
+
+tools:
+  verilator:
+    verilator_options:
+      - --sc
+      - --exe
