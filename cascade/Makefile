@@ -6,7 +6,7 @@ DESIGN_NAME=biriscv_tiny_soc
 .PHONY: run_vanilla_notrace fusesoc_register
 
 run_vanilla_notrace: fusesoc_register
-	fusesoc run --target=vanilla_notrace --tool=verilator $(DESIGN_NAME)
+	fusesoc run --tool=verilator $(DESIGN_NAME)
 
 fusesoc_register:
 	@if ! fusesoc list-cores | grep -q $(DESIGN_NAME); then \
