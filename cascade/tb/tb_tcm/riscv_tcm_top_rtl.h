@@ -6,7 +6,8 @@
 #include "axi4_lite.h"
 #include "axi4.h"
 
-class Vriscv_tcm_top;
+#include "Vbiriscv_tiny_soc.h"  
+
 class VerilatedVcdC;
 
 //-------------------------------------------------------------
@@ -22,8 +23,8 @@ public:
 
     sc_in  <axi4_lite_slave>  axi_i_in;
     sc_out <axi4_lite_master> axi_i_out;
-    sc_in  <axi4_master>  axi_t_in;
-    sc_out <axi4_slave> axi_t_out;
+    sc_in  <axi4_master>      axi_t_in;
+    sc_out <axi4_slave>       axi_t_out;
 
     //-------------------------------------------------------------
     // Constructor
@@ -34,35 +35,33 @@ public:
     //-------------------------------------------------------------
     // Trace
     //-------------------------------------------------------------
-    virtual void add_trace(sc_trace_file *vcd, std::string prefix)
-    {
-        #undef  TRACE_SIGNAL
-        #define TRACE_SIGNAL(s) sc_trace(vcd,s,prefix + #s)
-
-        TRACE_SIGNAL(clk_in);
-        TRACE_SIGNAL(rst_in);
-        TRACE_SIGNAL(rst_cpu_in);
-        TRACE_SIGNAL(intr_in);
-        TRACE_SIGNAL(axi_i_in);
-        TRACE_SIGNAL(axi_i_out);
-        TRACE_SIGNAL(axi_t_in);
-        TRACE_SIGNAL(axi_t_out);
-
-        #undef  TRACE_SIGNAL
-    }
+    virtual void add_trace(sc_trace_file *vcd, std::string prefix);
 
     void async_outputs(void);
     void trace_rtl(void);
     void trace_enable(VerilatedVcdC *p);
     void trace_enable(VerilatedVcdC *p, sc_core::sc_time start_time);
 
-    //-------------------------------------------------------------
-    // Signals
-    //-------------------------------------------------------------
 private:
+    //-------------------------------------------------------------
+    // Internal RTL instance
+    //-------------------------------------------------------------
+    std::unique_ptr<Vbiriscv_tiny_soc> m_rtl;
+
+#if VM_TRACE
+    std::unique_ptr<VerilatedVcdC> m_vcd;
+    bool             m_delay_waves;
+    sc_core::sc_time m_waves_start;
+#endif
+
+    //-------------------------------------------------------------
+    // Internal signals for connecting to Verilated design
+    //-------------------------------------------------------------
     sc_signal <bool> m_clk_in;
     sc_signal <bool> m_rst_in;
     sc_signal <bool> m_rst_cpu_in;
+    sc_signal < sc_uint<32> > m_intr_in;
+
     sc_signal <bool> m_axi_i_awready_in;
     sc_signal <bool> m_axi_i_wready_in;
     sc_signal <bool> m_axi_i_bvalid_in;
@@ -71,6 +70,7 @@ private:
     sc_signal <bool> m_axi_i_rvalid_in;
     sc_signal <sc_uint<32> > m_axi_i_rdata_in;
     sc_signal <sc_uint<2> > m_axi_i_rresp_in;
+
     sc_signal <bool> m_axi_t_awvalid_in;
     sc_signal <sc_uint<32> > m_axi_t_awaddr_in;
     sc_signal <sc_uint<4> > m_axi_t_awid_in;
@@ -87,7 +87,6 @@ private:
     sc_signal <sc_uint<8> > m_axi_t_arlen_in;
     sc_signal <sc_uint<2> > m_axi_t_arburst_in;
     sc_signal <bool> m_axi_t_rready_in;
-    sc_signal <sc_uint <32> > m_intr_in;
 
     sc_signal <bool> m_axi_i_awvalid_out;
     sc_signal <sc_uint<32> > m_axi_i_awaddr_out;
@@ -98,6 +97,7 @@ private:
     sc_signal <bool> m_axi_i_arvalid_out;
     sc_signal <sc_uint<32> > m_axi_i_araddr_out;
     sc_signal <bool> m_axi_i_rready_out;
+
     sc_signal <bool> m_axi_t_awready_out;
     sc_signal <bool> m_axi_t_wready_out;
     sc_signal <bool> m_axi_t_bvalid_out;
@@ -109,15 +109,6 @@ private:
     sc_signal <sc_uint<2> > m_axi_t_rresp_out;
     sc_signal <sc_uint<4> > m_axi_t_rid_out;
     sc_signal <bool> m_axi_t_rlast_out;
-
-public:
-    std::unique_ptr<Vriscv_tcm_top> m_rtl;
-#if VM_TRACE
-    //VerilatedVcdC  *m_vcd;
-    std::unique_ptr<VerilatedVcdC>  m_vcd;
-    bool             m_delay_waves;
-    sc_core::sc_time m_waves_start;
-#endif 
 };
 
 #endif

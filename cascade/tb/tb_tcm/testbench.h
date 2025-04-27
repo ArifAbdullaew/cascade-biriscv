@@ -4,12 +4,8 @@
 #include <unistd.h>
 #include <iomanip>
 
-#include "Vriscv_tcm_top.h"
-#include "Vriscv_tcm_top_riscv_tcm_top.h"
-#include "Vriscv_tcm_top_tcm_mem.h"
-
+#include "Vbiriscv_tiny_soc.h"
 #include "riscv_tcm_top_rtl.h"
-#include "Vriscv_tcm_top.h"
 
 #include "verilated.h"
 #include "verilated_vcd_sc.h"
