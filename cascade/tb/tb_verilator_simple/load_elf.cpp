@@ -2,11 +2,13 @@
 #include "Vbiriscv_tiny_soc_biriscv_tiny_soc.h"
 #include "Vbiriscv_tiny_soc_tcm_mem.h"
 #include "Vbiriscv_tiny_soc_tcm_mem_ram.h"
+#include "Vbiriscv_tiny_soc___024root.h"
 #include <fcntl.h>
 #include <unistd.h>
 #include <elf.h>
 #include <stdio.h>
 #include <cstring>
+#include <iostream>
 
 #define BASE_ADDR 0x80000000
 
