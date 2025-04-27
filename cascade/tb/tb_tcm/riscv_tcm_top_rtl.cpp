@@ -6,6 +6,15 @@
 #include "verilated_vcd_c.h"
 #endif
 
+
+uint8_t riscv_tcm_top_rtl::read_mem(uint32_t addr) {
+    printf("WARNING: read_mem() called, but memory access is not yet connected!\n");
+    return 0;
+}
+
+void riscv_tcm_top_rtl::write_mem(uint32_t addr, uint8_t data) {
+    printf("WARNING: write_mem() called, but memory access is not yet connected!\n");
+}
 //-------------------------------------------------------------
 // Constructor
 //-------------------------------------------------------------

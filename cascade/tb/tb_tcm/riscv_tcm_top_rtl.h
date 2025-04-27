@@ -16,6 +16,8 @@ class VerilatedVcdC;
 class riscv_tcm_top_rtl: public sc_module
 {
 public:
+    uint8_t read_mem(uint32_t addr);
+    void write_mem(uint32_t addr, uint8_t data);
     sc_in <bool> clk_in;
     sc_in <bool> rst_in;
     sc_in <bool> rst_cpu_in;

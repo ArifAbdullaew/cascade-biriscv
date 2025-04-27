@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <iomanip>
 
-#include "Vbiriscv_tiny_soc.h"
+// #include "Vbiriscv_tiny_soc.h"
 #include "riscv_tcm_top_rtl.h"
 
 #include "verilated.h"
@@ -216,7 +216,7 @@ public:
         std::cout << "\tBytes written: " << count << std::endl;
 #endif
         //Template fix. 
-        m_dut->m_rtl->u_tcm->write(addr,data);
+        m_dut->write_mem(addr, data)
     }
     //-----------------------------------------------------------------
     // write: Read byte from memory
@@ -231,7 +231,7 @@ public:
         return readData;
 #endif
 #ifndef DEBUG_TCM
-        return m_dut->m_rtl->u_tcm->read(addr);
+        return m_dut->read(addr);
 #endif
     }
 };
