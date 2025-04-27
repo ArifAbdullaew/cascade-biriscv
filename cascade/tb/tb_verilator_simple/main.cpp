@@ -1,7 +1,7 @@
-#include "Vbiriscv_tiny_soc.h"
-#include "Vbiriscv_tiny_soc_riscv_core.h"
 #include "Vbiriscv_tiny_soc_biriscv_tiny_soc.h" 
-#include "Vbiriscv_tiny_soc___024root.h"        
+#include "Vbiriscv_tiny_soc_riscv_core.h"
+#include "Vbiriscv_tiny_soc___024root.h"
+#include "Vbiriscv_tiny_soc.h"
 #include <verilated.h>
 #include <fcntl.h>
 #include <unistd.h>
