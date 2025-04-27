@@ -1,6 +1,6 @@
 CAPI=2:
 
-name: :biriscv_tiny_soc
+name: biriscv_tiny_soc
 description: "biRISCV Tiny SoC - Verilator simulation"
 
 filesets:
