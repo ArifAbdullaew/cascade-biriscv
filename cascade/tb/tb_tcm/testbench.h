@@ -4,14 +4,18 @@
 #include <unistd.h>
 #include <iomanip>
 
-// #include "Vbiriscv_tiny_soc.h"
+#include "Vriscv_tcm_top.h"
+#include "Vriscv_tcm_top_riscv_tcm_top.h"
+#include "Vriscv_tcm_top_tcm_mem.h"
+
 #include "riscv_tcm_top_rtl.h"
+#include "Vriscv_tcm_top.h"
 
 #include "verilated.h"
 #include "verilated_vcd_sc.h"
 
 #define MEM_BASE 0x00000000
-#define MEM_SIZE (1024  * 1024)
+#define MEM_SIZE (64 * 1024)
 
 //#define DEBUG_TCM
 
@@ -216,7 +220,7 @@ public:
         std::cout << "\tBytes written: " << count << std::endl;
 #endif
         //Template fix. 
-        m_dut->write_mem(addr, data);
+        m_dut->m_rtl->v->u_tcm->write(addr,data);
     }
     //-----------------------------------------------------------------
     // write: Read byte from memory
@@ -224,14 +228,14 @@ public:
     uint8_t read(uint32_t addr)
     {
 #ifdef DEBUG_TCM
-        uint32_t readData = m_dut->m_rtl->u_tcm->read(addr);
+        uint32_t readData = m_dut->m_rtl->v->u_tcm->read(addr);
         std::cout << "Addr: " << std::hex << addr 
                     << "Data: " << std::setw(2) << std::setfill('0') 
                     << (int)readData << std::endl;
         return readData;
 #endif
 #ifndef DEBUG_TCM
-        return m_dut->read_mem(addr);
+        return m_dut->m_rtl->v->u_tcm->read(addr);
 #endif
     }
 };
