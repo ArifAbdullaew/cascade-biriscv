@@ -3,6 +3,8 @@
 #include <vector>
 #include <elf.h>
 #include "Vbiriscv_tiny_soc.h"
+#include "Vbiriscv_tiny_soc___024root.h" 
+
 
 // Простейшая функция загрузки ELF в память дизайна
 bool load_elf(Vbiriscv_tiny_soc* top, const char* elf_filename) {
