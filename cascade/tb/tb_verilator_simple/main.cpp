@@ -1,8 +1,13 @@
 #include "Vbiriscv_tiny_soc.h"
-#include "Vbiriscv_tiny_soc___024root.h"
+#include "Vbiriscv_tiny_soc_biriscv_tiny_soc.h" 
+#include "Vbiriscv_tiny_soc___024root.h"        
 #include <verilated.h>
+#include <fcntl.h>
+#include <unistd.h>
 #include <iostream>
-#include <cstdlib>
+#include <cstring>
+#include <cassert>
+#include <elf.h>
 
 extern bool load_elf(Vbiriscv_tiny_soc *top, const char *filename);
 
