@@ -1,7 +1,7 @@
 CAPI=2:
 
 name: biriscv_tiny_soc
-description: "biRISCV Tiny SoC - Verilator simulation"
+description: "biRISCV Tiny SoC - RTL"
 
 filesets:
   rtl:
@@ -49,7 +49,7 @@ filesets:
       - src/icache/icache_data_ram.v
       - src/icache/icache_tag_ram.v
 
-      # TCM (Tightly Coupled Memory)
+      # TCM
       - src/tcm/dport_axi.v
       - src/tcm/dport_mux.v
       - src/tcm/tcm_mem.v
@@ -58,26 +58,8 @@ filesets:
 
     file_type: systemVerilogSource
 
-  tb:
-    files:
-      - tb/tb_tcm/main.cpp
-      - tb/tb_tcm/elf_load.cpp
-      - tb/tb_tcm/riscv_tcm_top_rtl.cpp
-      - tb/tb_tcm/testbench_vbase.h
-      - tb/tb_tcm/testbench.h
-      - tb/tb_tcm/elf_load.h
-      - tb/tb_tcm/mem_api.h
-      - tb/tb_tcm/axi4.h
-      - tb/tb_tcm/axi4_lite.h
-      - tb/tb_tcm/sc_reset_gen.h
-    file_type: user
-
 targets:
-  vanilla_notrace:
+  default:
     filesets:
       - rtl
-      - tb
     toplevel: riscv_tcm_top
-    commands:
-      verilator: >
-        verilator --sc --exe tb/tb_tcm/main.cpp tb/tb_tcm/elf_load.cpp tb/tb_tcm/riscv_tcm_top_rtl.cpp
