@@ -83,6 +83,6 @@ targets:
         extra_args:
           - --sc
           - --exe
-          - tb/tb_tcm/main.cpp
-          - tb/tb_tcm/elf_load.cpp
-          - tb/tb_tcm/riscv_tcm_top_rtl.cpp
+          - src/biriscv_tiny_soc_0/tb/tb_tcm/main.cpp
+          - src/biriscv_tiny_soc_0/tb/tb_tcm/elf_load.cpp
+          - src/biriscv_tiny_soc_0/tb/tb_tcm/riscv_tcm_top_rtl.cpp
