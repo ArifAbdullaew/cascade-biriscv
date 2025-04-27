@@ -1,5 +1,5 @@
 FUSESOC_LIBRARY_NAME=cascade-biriscv
-FUSESOC_LIBRARY_PATH=./cascade-biriscv
+FUSESOC_LIBRARY_PATH=./cascade-biriscv/cascade
 
 # Имя дизайна
 DESIGN_NAME=biriscv_tiny_soc
