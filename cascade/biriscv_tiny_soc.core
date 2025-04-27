@@ -78,9 +78,10 @@ targets:
       - rtl
       - tb
     toplevel: riscv_tcm_top
-    tools:
+
+    simulators:
       verilator:
-        extra_args:
+        compile_options:
           - --sc
           - --exe
           - src/biriscv_tiny_soc_0/tb/tb_tcm/main.cpp
