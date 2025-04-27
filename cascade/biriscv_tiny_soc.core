@@ -1,7 +1,7 @@
 CAPI=2:
 
 name: biriscv_tiny_soc
-description: "biRISCV Tiny SoC - RTL"
+description: "biRISCV Tiny SoC - RTL + Testbench"
 
 filesets:
   rtl:
@@ -58,8 +58,30 @@ filesets:
 
     file_type: systemVerilogSource
 
+  tb:
+    files:
+      - tb/tb_tcm/main.cpp
+      - tb/tb_tcm/elf_load.cpp
+      - tb/tb_tcm/riscv_tcm_top_rtl.cpp
+      - tb/tb_tcm/axi4.h
+      - tb/tb_tcm/axi4_lite.h
+      - tb/tb_tcm/elf_load.h
+      - tb/tb_tcm/mem_api.h
+      - tb/tb_tcm/sc_reset_gen.h
+      - tb/tb_tcm/testbench.h
+      - tb/tb_tcm/testbench_vbase.h
+    file_type: cppSource
+
 targets:
   default:
     filesets:
       - rtl
+      - tb
     toplevel: riscv_tcm_top
+    tools:
+      verilator:
+        extra_args:
+          - --exe
+          - tb/tb_tcm/main.cpp
+          - tb/tb_tcm/elf_load.cpp
+          - tb/tb_tcm/riscv_tcm_top_rtl.cpp
