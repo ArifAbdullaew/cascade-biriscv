@@ -1,55 +1,50 @@
 #include "Vbiriscv_tiny_soc.h"
 #include "verilated.h"
 #include <iostream>
-#include <fstream>
-#include <memory>
+#include <cstdlib> // Для getenv()
 
-#define MAX_CYCLES 100000
+extern bool load_elf(Vbiriscv_tiny_soc* top, const char* elf_filename);
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
     Verilated::commandArgs(argc, argv);
 
-    // Создание модели
-    auto top = std::make_unique<Vbiriscv_tiny_soc>();
+    Vbiriscv_tiny_soc* top = new Vbiriscv_tiny_soc;
 
-    // Инициализация сигналов
-    top->clk_i = 0;
-    top->rst_i = 1;  // Сначала в ресете
-    top->rst_cpu_i = 1;
-
-    // Здесь можно загрузить ELF напрямую в память (позже допишем)
-
-    // Сброс
-    for (int i = 0; i < 10; i++) {
-        top->clk_i = !top->clk_i;
-        top->eval();
+    const char* elf_path = nullptr;
+    
+    if (argc > 1) {
+        elf_path = argv[1];
+    } else {
+        elf_path = getenv("CASCADE_ELF");
     }
 
-    // Выход из ресета
-    top->rst_i = 0;
-    top->rst_cpu_i = 0;
-
-    uint64_t cycles = 0;
-
-    while (!Verilated::gotFinish() && cycles < MAX_CYCLES) {
-        // Генерируем такты
-        top->clk_i = !top->clk_i;
-        top->eval();
-        
-        // На фронте клока (например, когда clk_i == 1)
-        if (top->clk_i) {
-            // Дамп каждые 1000 циклов
-            if (cycles % 1000 == 0) {
-                std::cout << "Cycle: " << cycles << std::endl;
-                for (int i = 0; i < 32; ++i) {
-                    std::cout << "x" << i << ": 0x" << std::hex << top->x_regs[i] << std::dec << std::endl;
-                }
-                std::cout << "------------------------------" << std::endl;
-            }
+    if (elf_path) {
+        if (!load_elf(top, elf_path)) {
+            std::cerr << "[ERROR] Failed to load ELF!" << std::endl;
+            return 1;
         }
-        cycles++;
+    } else {
+        std::cerr << "[WARN] No ELF path provided (no argument, no CASCADE_ELF)." << std::endl;
     }
 
-    top->final();
+    uint64_t cycle = 0;
+    while (cycle < 20000) {
+        top->clk_i = 0;
+        top->eval();
+        top->clk_i = 1;
+        top->eval();
+        cycle++;
+
+        if (cycle % 1000 == 0) {
+            std::cout << "Cycle: " << cycle << std::endl;
+            for (int i = 0; i < 32; ++i) {
+                std::cout << "[DEBUG] Parsed int reg x" << i << ": " 
+                          << std::hex << top->x_regs[i] << std::dec << std::endl;
+            }
+            std::cout << "------------------------------" << std::endl;
+        }
+    }
+
+    delete top;
     return 0;
 }
