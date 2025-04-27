@@ -16,7 +16,8 @@ filesets:
       - src/core/biriscv_csr_regfile.v
       - src/core/biriscv_decode.v
       - src/core/biriscv_decoder.v
-      - src/core/biriscv_defs.v
+      - src/core/biriscv_defs.v:
+          is_include_file: true
       - src/core/biriscv_divider.v
       - src/core/biriscv_exec.v
       - src/core/biriscv_fetch.v
@@ -69,7 +70,7 @@ filesets:
       - tb/tb_tcm/axi4.h
       - tb/tb_tcm/axi4_lite.h
       - tb/tb_tcm/sc_reset_gen.h
-    file_type: cppSource
+    file_type: user
 
 targets:
   vanilla_notrace:
@@ -77,11 +78,8 @@ targets:
       - rtl
       - tb
     toplevel: riscv_tcm_top
-    tools:
+    tool_options:
       verilator:
         verilator_options:
           - --sc
           - --exe
-          - tb/tb_tcm/main.cpp
-          - tb/tb_tcm/elf_load.cpp
-          - tb/tb_tcm/riscv_tcm_top_rtl.cpp
