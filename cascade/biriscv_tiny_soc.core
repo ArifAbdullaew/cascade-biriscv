@@ -78,9 +78,6 @@ targets:
       - rtl
       - tb
     toplevel: riscv_tcm_top
-
-tools:
-  verilator:
-    verilator_options:
-      - --sc
-      - --exe
+    commands:
+      verilator: >
+        verilator --sc --exe tb/tb_tcm/main.cpp tb/tb_tcm/elf_load.cpp tb/tb_tcm/riscv_tcm_top_rtl.cpp
