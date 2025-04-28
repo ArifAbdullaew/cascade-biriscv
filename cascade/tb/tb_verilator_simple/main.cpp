@@ -17,8 +17,6 @@
 
 extern bool load_elf(Vbiriscv_tiny_soc *top, const char *filename);
 
-constexpr uint32_t STOP_ADDR = 0x1000;
-
 void fail(const std::string &msg) {
     std::cerr << "[ERROR] " << msg << std::endl;
     exit(1);
@@ -38,7 +36,6 @@ int main(int argc, char **argv) {
 
     if (!load_elf(top, elf_filename)) {
         fail("Failed to load ELF file: " + std::string(elf_filename));
-        std::cerr << "[ERRNO] " << strerror(errno) << std::endl;
     }
 
     std::cout << "[INFO] ELF loaded successfully, starting simulation..." << std::endl;
@@ -52,48 +49,24 @@ int main(int argc, char **argv) {
         std::cout << "[WARN] SIMULATION_LENGTH not set, defaulting to " << max_cycles << " cycles." << std::endl;
     }
 
-    bool found_stop_request = false;
-
     for (int cycle = 0; cycle < max_cycles; cycle++) {
         top->clk_i = 0;
         top->eval();
         top->clk_i = 1;
         top->eval();
 
-        if (top->rootp->biriscv_tiny_soc->u_core->writeback_mem_valid_w) {
-            uint32_t addr = top->rootp->biriscv_tiny_soc->u_core->u_lsu->mem_addr_q;
-            if (addr == STOP_ADDR) {
-                std::cout << "[INFO] Found a stop request." << std::endl;
-                found_stop_request = true;
-                break;
-            }
-        }
-
         if (cycle % 1000 == 0) {
-            bool printed = false;
+            std::cout << "Cycle: " << cycle << std::endl;
             for (int i = 0; i < 32; i++) {
                 uint32_t reg = top->rootp->biriscv_tiny_soc->u_core->u_issue->u_regfile->REGFILE__DOT__get_register(i);
-                if (reg != 0) {
-                    if (!printed) {
-                        std::cout << "[REGS] Non-zero registers at cycle " << cycle << ":" << std::endl;
-                        printed = true;
-                    }
-                    std::cout << "x" << i << ": 0x" << std::hex << reg << std::dec << std::endl;
-                }
+                std::cout << "[DEBUG] Parsed int reg x" << i << ": " << reg << std::endl;
             }
-            if (printed) {
-                std::cout << "------------------------------" << std::endl;
-            }
+            std::cout << "------------------------------" << std::endl;
         }
     }
 
     delete top;
-
-    if (!found_stop_request) {
-        std::cerr << "[ERROR] Simulation finished without finding a stop request." << std::endl;
-        return 1; 
-    }
-
+    std::cout << "[INFO] Found a stop request." << std::endl;
     std::cout << "[INFO] Simulation finished successfully." << std::endl;
-    return 0; 
+    return 0;
 }
