@@ -2,7 +2,7 @@
 
 TOP = Vbiriscv_mem_top
 
-VERILATOR_FLAGS = -cc --exe --build -O3 -Wall --public --trace \
+VERILATOR_FLAGS = -cc --exe --build -O3 -Wall --public-flat-rw --trace \
     -Wno-fatal \
     -CFLAGS "-std=c++17 -O3 -Wall -Wno-unused-variable" \
     -LDFLAGS "-lstdc++" \
