@@ -72,7 +72,7 @@ public:
 
     void dump_registers() {
         for (int i = 0; i < 32; ++i) {
-            uint32_t reg_value = dut->rootp->biriscv_tiny_soc->u_core->u_regfile->REGFILE__DOT__get_register(i);
+            uint32_t reg_value = dut->rootp->top->u_core->u_regfile->REGFILE__DOT__get_register(i);
             std::cout << "x" << i << ": 0x" << std::hex << reg_value << std::dec << std::endl;
         }
     }
