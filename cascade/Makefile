@@ -1,30 +1,24 @@
-OBJ_DIR = obj_dir
-TOP_MODULE = Vbiriscv_tiny_soc
-BUILD_DIR ?= $(shell pwd)/build
-SIM_DIR = $(BUILD_DIR)/run_vanilla_notrace_0.1/default-verilator
+TOP_MODULE = biriscv_mem_top
+BUILD_DIR = build
+OBJ_DIR = $(BUILD_DIR)/obj_dir
+SIM_BIN = $(BUILD_DIR)/V$(TOP_MODULE)
 
-MAIN_CPP = tb/tb_verilator_simple/main.cpp
+VERILATOR = verilator
+VERILATOR_FLAGS = -cc -O3 --exe --build \
+    -Wall -Wno-fatal --trace \
+    -CFLAGS "-std=c++17" \
+    src/biriscv_mem_top.sv src/biriscv_ram.sv src/core/riscv_core.v \
+    dv/main.cpp
 
-CXX = g++
-CXXFLAGS = -O2 -Wall -Wno-unused-variable -std=c++17
-LDFLAGS = 
-INCLUDES = -I$(OBJ_DIR) -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd
-LIBS = -lverilated
+build:
+	mkdir -p $(BUILD_DIR)
+	$(VERILATOR) $(VERILATOR_FLAGS) --top-module $(TOP_MODULE) --Mdir $(OBJ_DIR) -o V$(TOP_MODULE)
 
-ELF_FILE ?= program.elf
-
-all: $(SIM_DIR)/$(TOP_MODULE)
-
-$(SIM_DIR)/$(TOP_MODULE): $(OBJ_DIR)/$(TOP_MODULE).cpp $(MAIN_CPP)
-	@echo "Building Verilator simulation binary..."
-	mkdir -p $(SIM_DIR)
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $@ $(MAIN_CPP) $(OBJ_DIR)/$(TOP_MODULE)__*.cpp $(OBJ_DIR)/$(TOP_MODULE).cpp $(LIBS) $(LDFLAGS)
-
-run_vanilla_notrace: all
-	@echo "Running biRISCV vanilla simulation on $(ELF_FILE)"
-	CASCADE_ELF_FILE=$(ELF_FILE) $(SIM_DIR)/$(TOP_MODULE)
+run_vanilla_notrace: build
+	@echo "Running simulation with ELF: $(ELF_FILE)"
+	CASCADE_ELF_FILE=$(ELF_FILE) SIMULATION_LENGTH=1000000 ./$(SIM_BIN)
 
 clean:
-	rm -rf $(OBJ_DIR) $(BUILD_DIR)
+	rm -rf $(BUILD_DIR)
 
-.PHONY: all clean run_vanilla_notrace
+.PHONY: build run_vanilla_notrace clean
