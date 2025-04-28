@@ -34,6 +34,8 @@ int main(int argc, char **argv) {
 
     if (!load_elf(top, elf_filename)) {
         fail("Failed to load ELF file: " + std::string(elf_filename));
+        std::cerr << "[ERRNO] " << strerror(errno) << std::endl;
+        return 1;
     }
 
     std::cout << "[INFO] ELF loaded successfully, starting simulation..." << std::endl;
