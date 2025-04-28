@@ -1,24 +1,22 @@
-TOP_MODULE = biriscv_mem_top
-BUILD_DIR = build
-OBJ_DIR = $(BUILD_DIR)/obj_dir
-SIM_BIN = $(BUILD_DIR)/V$(TOP_MODULE)
+# Simple Makefile for biRISCV simulation with Verilator
 
-VERILATOR = verilator
-VERILATOR_FLAGS = -cc -O3 --exe --build \
-    -Wall -Wno-fatal --trace \
-    -CFLAGS "-std=c++17" \
-    src/biriscv_mem_top.sv src/biriscv_ram.sv src/core/riscv_core.v \
-    dv/main.cpp
+TOP = Vbiriscv_mem_top
 
-build:
-	mkdir -p $(BUILD_DIR)
-	$(VERILATOR) $(VERILATOR_FLAGS) --top-module $(TOP_MODULE) --Mdir $(OBJ_DIR) -o V$(TOP_MODULE)
+VERILATOR_FLAGS = -cc --exe --build -O3 -Wall --public --trace \
+    -CFLAGS "-std=c++17 -O3" \
+    -LDFLAGS "-lstdc++"
 
-run_vanilla_notrace: build
-	@echo "Running simulation with ELF: $(ELF_FILE)"
-	CASCADE_ELF_FILE=$(ELF_FILE) SIMULATION_LENGTH=1000000 ./$(SIM_BIN)
+VERILATOR_SRCS = \
+    ../rtl/biriscv_mem_top.sv \
+    ../rtl/riscv_core.v \
+    dv/toplevel.cc
+
+all: sim_biriscv
+
+sim_biriscv:
+	verilator $(VERILATOR_FLAGS) $(VERILATOR_SRCS) -o sim_biriscv
 
 clean:
-	rm -rf $(BUILD_DIR)
+	rm -rf obj_dir sim_biriscv *.vcd
 
-.PHONY: build run_vanilla_notrace clean
+.PHONY: all clean
