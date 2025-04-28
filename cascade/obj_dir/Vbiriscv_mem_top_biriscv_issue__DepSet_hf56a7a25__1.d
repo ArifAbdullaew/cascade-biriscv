@@ -1,4 +1,0 @@
-Vbiriscv_mem_top_biriscv_issue__DepSet_hf56a7a25__1.o: \
- Vbiriscv_mem_top_biriscv_issue__DepSet_hf56a7a25__1.cpp \
- Vbiriscv_mem_top__pch.h Vbiriscv_mem_top__Syms.h \
- Vbiriscv_mem_top_biriscv_issue.h

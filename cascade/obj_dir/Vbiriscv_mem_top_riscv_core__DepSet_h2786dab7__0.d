@@ -1,3 +1,0 @@
-Vbiriscv_mem_top_riscv_core__DepSet_h2786dab7__0.o: \
- Vbiriscv_mem_top_riscv_core__DepSet_h2786dab7__0.cpp \
- Vbiriscv_mem_top__pch.h Vbiriscv_mem_top_riscv_core.h

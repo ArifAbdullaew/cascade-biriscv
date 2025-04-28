@@ -1,3 +1,0 @@
-Vbiriscv_mem_top_biriscv_mem_top__Slow.o: \
- Vbiriscv_mem_top_biriscv_mem_top__Slow.cpp Vbiriscv_mem_top__pch.h \
- Vbiriscv_mem_top__Syms.h Vbiriscv_mem_top_biriscv_mem_top.h

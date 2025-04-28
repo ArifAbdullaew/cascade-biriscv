@@ -53,12 +53,18 @@ VERILATOR_SRCS = \
     src/top/riscv_tcm_top.v \
     src/top/riscv_top.v
 
-all: sim_biriscv
+EXEC_FILE = sim_biriscv
 
-sim_biriscv:
-	verilator $(VERILATOR_FLAGS) $(VERILATOR_SRCS) -o sim_biriscv
+all: $(EXEC_FILE)
+
+$(EXEC_FILE):
+	verilator $(VERILATOR_FLAGS) $(VERILATOR_SRCS) -o $(EXEC_FILE)
+
+run_vanilla_notrace: $(EXEC_FILE)
+	@echo "Running simulation with ELF file: $(ELF_FILE)"
+	./$(EXEC_FILE) --elf=$(ELF_FILE)
 
 clean:
-	rm -rf obj_dir sim_biriscv *.vcd
+	rm -rf obj_dir $(EXEC_FILE) *.vcd
 
-.PHONY: all clean
+.PHONY: all clean run_vanilla_notrace

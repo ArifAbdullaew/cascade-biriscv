@@ -1,4 +1,0 @@
-Vbiriscv_mem_top_biriscv_csr__SB0__DepSet_h731ce2b2__0.o: \
- Vbiriscv_mem_top_biriscv_csr__SB0__DepSet_h731ce2b2__0.cpp \
- Vbiriscv_mem_top__pch.h Vbiriscv_mem_top__Syms.h \
- Vbiriscv_mem_top_biriscv_csr__SB0.h

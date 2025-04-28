@@ -1,3 +1,0 @@
-Vbiriscv_mem_top_biriscv_regfile__DepSet_hc7d6aeff__0__Slow.o: \
- Vbiriscv_mem_top_biriscv_regfile__DepSet_hc7d6aeff__0__Slow.cpp \
- Vbiriscv_mem_top__pch.h Vbiriscv_mem_top_biriscv_regfile.h
