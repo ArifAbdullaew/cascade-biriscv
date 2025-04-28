@@ -9,7 +9,15 @@ VERILATOR_FLAGS = -cc --exe --build -O3 -Wall --public --trace \
 VERILATOR_SRCS = \
     dv/sv/biriscv_mem_top.sv \
     src/core/riscv_core.v \
-    dv/sv/toplevel.cc
+    src/core/biriscv_frontend.v \
+    src/core/biriscv_mmu.v \
+    src/core/biriscv_lsu.v \
+    src/core/biriscv_csr.v \
+    src/core/biriscv_multiplier.v \
+    src/core/biriscv_divider.v \
+    src/core/biriscv_issue.v \
+    src/core/biriscv_exec.v \
+    dv/toplevel.cc
 
 all: sim_biriscv
 
