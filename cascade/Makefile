@@ -21,7 +21,6 @@ VERILATOR_SRCS = \
     src/core/biriscv_exec.v \
     src/core/biriscv_defs.v \
     dv/toplevel.cc \
-    src/biriscv_mem_top.sv \
     src/biriscv_ram.sv \
     src/core/biriscv_alu.v \
     src/core/biriscv_decode.v \
