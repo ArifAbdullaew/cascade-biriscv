@@ -3,6 +3,8 @@ TOP_MODULE = Vbiriscv_tiny_soc
 BUILD_DIR ?= $(shell pwd)/build
 SIM_DIR = $(BUILD_DIR)/run_vanilla_notrace_0.1/default-verilator
 
+MAIN_CPP = tb/tb_verilator_simple/main.cpp
+
 CXX = g++
 CXXFLAGS = -O2 -Wall -Wno-unused-variable -std=c++17
 LDFLAGS = 
@@ -13,10 +15,10 @@ ELF_FILE ?= program.elf
 
 all: $(SIM_DIR)/$(TOP_MODULE)
 
-$(SIM_DIR)/$(TOP_MODULE): $(OBJ_DIR)/$(TOP_MODULE).cpp main.cpp
+$(SIM_DIR)/$(TOP_MODULE): $(OBJ_DIR)/$(TOP_MODULE).cpp $(MAIN_CPP)
 	@echo "Building Verilator simulation binary..."
 	mkdir -p $(SIM_DIR)
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $@ main.cpp $(OBJ_DIR)/$(TOP_MODULE)__*.cpp $(OBJ_DIR)/$(TOP_MODULE).cpp $(LIBS) $(LDFLAGS)
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $@ $(MAIN_CPP) $(OBJ_DIR)/$(TOP_MODULE)__*.cpp $(OBJ_DIR)/$(TOP_MODULE).cpp $(LIBS) $(LDFLAGS)
 
 run_vanilla_notrace: all
 	@echo "Running biRISCV vanilla simulation on $(ELF_FILE)"
