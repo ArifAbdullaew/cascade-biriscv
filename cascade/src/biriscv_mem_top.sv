@@ -14,7 +14,7 @@ logic [31:0] mem_rdata_i;
 // Ядро процессора
 riscv_core u_core (
     .clk_i(clk_i),
-    .rst_ni(rst_ni),
+    .rst_i(rst_ni),
     .testmode_i(1'b0),
     .irq_i('0),
     .irq_ack_i(1'b0),
