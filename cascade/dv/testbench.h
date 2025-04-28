@@ -1,9 +1,12 @@
+// dv/testbench.h
 #pragma once
 
 #include <verilated.h>
 #include <cstdint>
 #include <unordered_map>
+#include <iostream>
 #include "Vbiriscv_mem_top.h"
+
 
 class Testbench {
 public:
@@ -66,4 +69,11 @@ public:
     bool done() {
         return Verilated::gotFinish();
     }
-};
+
+    void dump_registers() {
+        for (int i = 0; i < 32; ++i) {
+            uint32_t reg_value = dut->rootp->biriscv_tiny_soc->u_core->u_regfile->REGFILE__DOT__get_register(i);
+            std::cout << "x" << i << ": 0x" << std::hex << reg_value << std::dec << std::endl;
+        }
+    }
+    };
