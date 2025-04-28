@@ -4,7 +4,8 @@ TOP = Vbiriscv_mem_top
 
 VERILATOR_FLAGS = -cc --exe --build -O3 -Wall --public --trace \
     -CFLAGS "-std=c++17 -O3 -Wall -Wno-unused-variable" \
-    -LDFLAGS "-lstdc++"
+    -LDFLAGS "-lstdc++" \
+    -Isrc/core
 
 VERILATOR_SRCS = \
     dv/sv/biriscv_mem_top.sv \
