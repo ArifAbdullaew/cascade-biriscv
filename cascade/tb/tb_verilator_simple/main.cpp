@@ -40,7 +40,16 @@ int main(int argc, char **argv) {
 
     std::cout << "[INFO] ELF loaded successfully, starting simulation..." << std::endl;
 
-    for (int cycle = 0; cycle < 20000; cycle++) {
+    const char *simlen_env = getenv("SIMULATION_LENGTH");
+    int max_cycles = 20000;
+    if (simlen_env) {
+        max_cycles = atoi(simlen_env);
+        std::cout << "[INFO] Simulation length set to " << max_cycles << " cycles from environment." << std::endl;
+    } else {
+        std::cout << "[WARN] SIMULATION_LENGTH not set, defaulting to " << max_cycles << " cycles." << std::endl;
+    }
+
+    for (int cycle = 0; cycle < max_cycles; cycle++) {
         top->clk_i = 0;
         top->eval();
         top->clk_i = 1;
@@ -73,6 +82,7 @@ int main(int argc, char **argv) {
     }
 
     delete top;
+    std::cout << "[INFO] Found a stop request." << std::endl;
     std::cout << "[INFO] Simulation finished successfully." << std::endl;
     return 0;
 }
