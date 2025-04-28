@@ -15,6 +15,8 @@
 
 extern bool load_elf(Vbiriscv_tiny_soc *top, const char *filename);
 
+constexpr uint32_t STOP_ADDR = 0x1000;
+
 void fail(const std::string &msg) {
     std::cerr << "[ERROR] " << msg << std::endl;
     exit(1);
@@ -35,7 +37,6 @@ int main(int argc, char **argv) {
     if (!load_elf(top, elf_filename)) {
         fail("Failed to load ELF file: " + std::string(elf_filename));
         std::cerr << "[ERRNO] " << strerror(errno) << std::endl;
-        return 1;
     }
 
     std::cout << "[INFO] ELF loaded successfully, starting simulation..." << std::endl;
@@ -49,6 +50,8 @@ int main(int argc, char **argv) {
         std::cout << "[WARN] SIMULATION_LENGTH not set, defaulting to " << max_cycles << " cycles." << std::endl;
     }
 
+    bool found_stop_request = false;
+
     for (int cycle = 0; cycle < max_cycles; cycle++) {
         top->clk_i = 0;
         top->eval();
@@ -56,11 +59,12 @@ int main(int argc, char **argv) {
         top->eval();
 
         if (top->rootp->biriscv_tiny_soc->u_core->writeback_mem_valid_w) {
-            std::cout << "[SIM] Cycle " << cycle
-                      << ": Memory access at address 0x"
-                      << std::hex
-                      << (top->rootp->biriscv_tiny_soc->u_core->u_lsu->mem_addr_q)
-                      << std::dec << std::endl;
+            uint32_t addr = top->rootp->biriscv_tiny_soc->u_core->u_lsu->mem_addr_q;
+            if (addr == STOP_ADDR) {
+                std::cout << "[INFO] Found a stop request." << std::endl;
+                found_stop_request = true;
+                break;
+            }
         }
 
         if (cycle % 1000 == 0) {
@@ -82,7 +86,12 @@ int main(int argc, char **argv) {
     }
 
     delete top;
-    std::cout << "[INFO] Found a stop request." << std::endl;
+
+    if (!found_stop_request) {
+        std::cerr << "[ERROR] Simulation finished without finding a stop request." << std::endl;
+        return 1; 
+    }
+
     std::cout << "[INFO] Simulation finished successfully." << std::endl;
-    return 0;
+    return 0; 
 }
