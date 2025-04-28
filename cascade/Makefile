@@ -8,7 +8,7 @@ MAIN_CPP = tb/tb_verilator_simple/main.cpp
 CXX = g++
 CXXFLAGS = -O2 -Wall -Wno-unused-variable -std=c++17
 LDFLAGS = 
-INCLUDES = -I$(OBJ_DIR) -I/usr/share/verilator/include -I/usr/share/verilator/include/vltstd
+INCLUDES = -I$(OBJ_DIR) -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd
 LIBS = -lverilated
 
 ELF_FILE ?= program.elf
