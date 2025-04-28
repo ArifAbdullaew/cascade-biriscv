@@ -1,6 +1,13 @@
 // dv/testbench.h
 #pragma once
 
+#include "Vbiriscv_mem_top___024root.h"
+#include "Vbiriscv_mem_top_biriscv_regfile.h"
+#include "Vbiriscv_mem_top_biriscv_mem_top.h"
+#include "Vbiriscv_mem_top_biriscv_issue.h"
+#include "Vbiriscv_mem_top_riscv_core.h"
+
+
 #include <verilated.h>
 #include <cstdint>
 #include <unordered_map>
@@ -72,7 +79,7 @@ public:
 
     void dump_registers() {
         for (int i = 0; i < 32; ++i) {
-            uint32_t reg_value = dut->rootp->top->u_core->u_regfile->REGFILE__DOT__get_register(i);
+            uint32_t reg_value = dut->rootp->biriscv_mem_top->u_core->u_issue->u_regfile->REGFILE__DOT__get_register(i);
             std::cout << "x" << i << ": 0x" << std::hex << reg_value << std::dec << std::endl;
         }
     }
